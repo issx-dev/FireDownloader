@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FireDownloader</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+    <header>
+        <h1>FireDownloader</h1>
+    </header>
+
+    <main>
+        <h2>Bienvenido a FireDownloader</h2>
+        <p>Descarga tus videos favoritos de YouTube fácilmente.</p>
+
+        <form action="/download" method="post">
+            <label for="url">URL del video:</label>
+            <input type="text" id="url" name="url" required>
+
+            <label for="quality">Calidad del video:</label>
+            <select id="quality" name="quality">
+                <option value="360">360p</option>
+                <option value="720">720p</option>
+                <option value="1080">1080p</option>
+                <option value="1440">1440p</option>
+                <option value="2160">2160p</option>
+            </select>
+
+            <label for="format">Formato del video:</label>
+            <select id="format" name="format">
+                <option value="mp4">MP4 (video)</option>
+                <option value="webm">WEBM (video)</option>
+                <option value="mkv">MKV (video)</option>
+                <option value="mp3">MP3 (audio)</option>
+                <option value="m4a">M4A (audio)</option>
+            </select>
+
+
+            <button type="submit">Descargar</button>
+        </form>
+
+        {% if "❌" in result %}
+        <div class="error">
+            <p>{{ result }}</p>
+        </div>
+        {% elif "⚠️" in result %}
+        <div class="warning">
+            <p>{{ result }}</p>
+        </div>
+        {% elif result %}
+        <div class="success">
+            <p>Descarga preparada</p>
+            <a href="{{ download_file }}" download>Descargar aquí</a>
+        </div>
+        {% endif %}
+    </main>
+</body>
+
+</html>
