@@ -4,8 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FireDownloader</title>
+
+    <title>FireDownloader|NO-ADS - Download YouTube videos for free</title>
+
+    <!-- Favicon -->
+    <link rel="icon" href="{{ url_for('static', filename='favicon.png') }}">
+
+    <!-- CSS y JS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+
+    <!-- Description and keywords for SEO -->
+    <meta name="description"
+        content="FireDownloader allows you to download videos and music from YouTube in multiple formats .">
+    <meta name="keywords"
+        content="descargar YouTube, mp3 YouTube, mp4 YouTube, FireDownloader, bajar videos YouTube, convertidor YouTube, descargar música, online downloader">
+    <meta name="author" content="Issx-Dev">
 </head>
 
 <body>
@@ -43,20 +57,29 @@
             <button type="submit">Descargar</button>
         </form>
 
-        {% if "❌" in result %}
-        <div class="error">
-            <p>{{ result }}</p>
-        </div>
-        {% elif "⚠️" in result %}
-        <div class="warning">
-            <p>{{ result }}</p>
-        </div>
-        {% elif result %}
+        <p>Nota: Asegúrate de que la URL del video sea válida y de que el video esté disponible para su descarga.</p>
+        {% if result %}
+        <br><br>
+        <h3>Resultados de la descarga</h3>
+        {% endif %}
+
+        {% if result and result['success'] %}
         <div class="success">
             <p>Descarga preparada</p>
+            {{download_file}}
             <a href="{{ download_file }}" download>Descargar aquí</a>
         </div>
+        {% elif result and "❌" in result['error']%}
+        <div class="error">
+            <p>{{ result['error'] }}</p>
+        </div>
+        {% elif result and "⚠️" in result['error'] %}
+        <div class="warning">
+            <p>{{ result['error'] }}</p>
+            <a href="{{ download_file }}" download onclick="hideInfoDownload()">Descargar aquí</a>
+        </div>
         {% endif %}
+        <div id="redirect_info"></div>
     </main>
 </body>
 

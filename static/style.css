@@ -6,8 +6,8 @@
     --border: rgba(255, 255, 255, 0.1);
     --text-color: #ffffffcc;
     --accent: #00c3ff;
-    --danger: #ff4d4d;
-    --warning: #ffaa00;
+    --danger: #9e3b3b;
+    --warning: #d8ad58;
     --success: #00e676;
 }
 
@@ -126,6 +126,9 @@ button:hover {
 
 .warning {
     background-color: var(--warning);
+}
+
+.warning p {
     color: black;
 }
 
@@ -133,10 +136,11 @@ button:hover {
     background-color: var(--success);
     text-align: center;
 }
-.success p{
-    color: black;
 
+.success p {
+    color: black;
 }
+
 .success a {
     display: inline-block;
     margin-top: 1rem;

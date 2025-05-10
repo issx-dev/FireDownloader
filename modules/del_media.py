@@ -1,7 +1,7 @@
 import os
 import time
 
-def limpiar_archivos_viejos(ruta, minutos=5):
+def del_old_files(ruta, minutos=5):
     ahora = time.time()
     for archivo in os.listdir(ruta):
         print(archivo)

@@ -3,15 +3,16 @@ import os
 
 
 def download_video(url, quality="1080", format="mp4"):
-    download_dir = os.path.join(
-        os.path.expanduser("~"), "Escritorio/YtVideoDownloaderFlask/Downloads"
-    )
-
+    # Carpeta temporal dentro de tu proyecto
+    download_dir = os.path.join(os.getcwd(), "Downloads")
     os.makedirs(download_dir, exist_ok=True)
 
+    # Plantilla para nombre de archivo
+    outtmpl = os.path.join(download_dir, "%(title).80s.%(ext)s")
+
     ydl_opts = {
-        "outtmpl": os.path.join(download_dir, "%(title)s.%(ext)s"),
-        "progress_hooks": [progreso_descarga],
+        "outtmpl": outtmpl,
+        "quiet": True,
     }
 
     if format == "mp3":
@@ -38,28 +39,38 @@ def download_video(url, quality="1080", format="mp4"):
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info = ydl.extract_info(url, download=True)
 
-            if (info.get("height", 0) or 0) < int(quality) and format != "mp3":
-                return f"⚠️ Calidad máxima disponible: {info['height']}p"
+            title = info.get("title") if info else "firedownloader_video"
+            ext = "mp3" if format == "mp3" else format
+            filename = f"{title}.{ext}"
+            full_path = os.path.join(download_dir, filename)
 
-            title = info["title"]
-            return f"{title}.{'mp3' if format == 'mp3' else format}"
+            if info and (info.get("height", 0) or 0) < int(quality) and format != "mp3":
+                max_quality = f"{info['height']}p"
+                return {
+                    "success": False,
+                    "error": f"⚠️ Calidad máxima disponible: {max_quality}",
+                    "file_path": full_path,
+                    "file_name": filename,
+                    "title": title,
+                }
 
-    except yt_dlp.utils.ExtractorError as e:
-        return f"❌ Error de extracción: {str(e)}"
-    except yt_dlp.utils.DownloadError as e:
-        return f"❌ Error: {str(e)}"
+            # Asegura que el archivo existe
+            if not os.path.isfile(full_path):
+                return {
+                    "success": False,
+                    "error": "❌ Archivo no encontrado tras descarga",
+                }
+
+            return {
+                "success": True,
+                "file_path": full_path,
+                "file_name": filename,
+                "title": title,
+            }
+
+    except yt_dlp.utils.ExtractorError:
+        return {"success": False, "error": "❌ Error al extraer el video"}
+    except yt_dlp.utils.DownloadError:
+        return {"success": False, "error": "❌ Video no encontrado o URL inválida"}
     except Exception as e:
-        return f"❌ Error inesperado: {str(e)}"
-
-
-def progreso_descarga(d):
-    if d["status"] == "downloading":
-        porcentaje = d.get("_percent_str", "N/A")
-        velocidad = d.get("_speed_str", "N/A")
-        print(f"\rProgreso: {porcentaje} | Velocidad: {velocidad}", end="")
-
-
-if __name__ == "__main__":
-    # Ejemplo de uso
-    resultado = download_video("https://youtu.be/OuJerKzV5T0?si=PFvUBM4FsTODeP3u")
-    print("\n" + resultado)
+        return {"success": False, "error": f"❌ Error inesperado: {str(e)}"}
