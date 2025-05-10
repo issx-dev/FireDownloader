@@ -74,7 +74,14 @@
                 {% else %}
                 <p>✅️ Todo listo, archivo listo para descargar!!</p>
                 {% endif %}
-
+                <!-- 
+                This <a> link is used to send the downloaded file info to js, who will control request 
+                Why?
+                1. With js we can control the download process, error handling, redirection after download (redirectAfterDownload()), etc. 
+                2. The response that we are going to get is as a blob, and it let us modify the name of the file, the type, etc.
+                3. We can construct the download link dynamically, so we can use the same link for all formats.
+                4. Force the download with a.click() instead of using the download attribute.
+                -->
                 <a id="download-link" href="{{ download_file }}" data-filename="{{ result['file_name'] }}" download>
                     Pulsa aquí para descargar ->
                     <img src="/static/favicon.png" alt="Icono para descargar" width="30"></a>
