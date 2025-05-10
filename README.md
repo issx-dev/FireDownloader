@@ -49,6 +49,11 @@ http://localhost:5000
 - yt-dlp
 - Jinja2 (3.1.6)
 
+![Python](https://img.shields.io/badge/python-3.12.3-blue.svg)
+![Flask](https://img.shields.io/badge/flask-3.1.0-green.svg)
+![Jinja2](https://img.shields.io/badge/jinja2-3.1.6-red.svg)
+![License](https://img.shields.io/badge/license-MIT-yellow.svg)
+
 ## Development Setup
 
 1. Clone the repository:
