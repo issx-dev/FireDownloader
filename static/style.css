@@ -1,5 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap');
 
+@media (max-width: 600px) {
+    main {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+}
+
 :root {
     --bg-color: #0e0e0e;
     --card-bg: rgba(255, 255, 255, 0.05);
@@ -163,11 +170,4 @@ button:hover {
 
 .success a:hover {
     background-color: #5cb389d5;
-}
-
-@media (max-width: 600px) {
-    main {
-        padding: 1.5rem;
-        margin: 1rem;
-    }
 }

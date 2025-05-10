@@ -21,37 +21,35 @@ async function redirectAfterDownload() {
     location.href = "/";
 }
 
-document.getElementById('download-link').addEventListener('click', function (event) {
-    event.preventDefault();
-    var link = this.getAttribute('href');
-    var filename = this.getAttribute('data-filename');
+window.addEventListener("load", () => {
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', link, true);
-    xhr.responseType = 'blob';
-    // Set the request header to accept the file type
-    xhr.onload = function () {
-        var blob = xhr.response;
-        var url = window.URL.createObjectURL(blob);
-        var a = document.createElement('a');
-        a.style.display = 'none';
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
+    downloadLink.addEventListener('click', function (event) {
+        event.preventDefault();
+        var link = this.getAttribute('href');
+        var filename = this.getAttribute('data-filename');
 
-        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-        if (isMobile) {
-            window.open(url, '_blank');
-        } else {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', link, true);
+        xhr.responseType = 'blob';
+
+        // Set the request header to accept the file type
+        xhr.onload = function () {
+            var blob = xhr.response;
+            var url = window.URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.style.display = 'none';
+            a.href = url;
+            a.download = filename;
+
+            document.body.appendChild(a);
             a.click();
-        }
-        
-        window.URL.revokeObjectURL(url);
+            window.URL.revokeObjectURL(url);
+            // Retutrn to the main page after 30 seconds
+            redirectAfterDownload();
+        };
 
-        // Retutrn to the main page after 30 seconds
-        redirectAfterDownload();
-    };
-    xhr.send();
+        xhr.send();
+    });
 });
 
 window.addEventListener("load", () => {
