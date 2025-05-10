@@ -61,6 +61,11 @@
         <div id="download_info">
             <p>Nota: Asegúrate de que la URL del video sea válida y de que el video esté disponible para su descarga.
             </p>
+
+            <div id="loading_animation" class="loading_animation">
+                <img src="{{ url_for('static', filename='loading_animation.gif') }}" alt="loading_animation" width="50">
+                <p>Descargando el video.. Por favor, espera.</p>
+            </div>
             {% if result %}
             <br>
             <h3>Resultados de la descarga</h3>

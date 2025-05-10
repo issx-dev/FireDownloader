@@ -26,7 +26,7 @@ async function redirectAfterDownload() {
             clearInterval(interval);
         }
     }, 1000);
-    
+
     // Generate a promise that resolves after 30 seconds
     // Await needs a promise to makes a pause in the function until the promise is resolved (like wait 30 seconds before continuing)
     // When the timeout (timer) is over, resolve is automatically called
@@ -36,7 +36,19 @@ async function redirectAfterDownload() {
     location.href = "/";
 }
 
+
 window.addEventListener("load", () => {
+    const downloadForm = document.querySelector('form')
+    const loadingAnimation = document.getElementById('loading_animation')
+
+    // Add event listener for submit option to ensure that the form has been filled correctly
+    downloadForm.addEventListener("submit", () => {
+        if (loadingAnimation) loadingAnimation.style.display = 'block'
+    });
+});
+
+window.addEventListener("load", () => {
+
     // Get the download link element in the DOM
     const downloadLink = document.getElementById('download-link');
     // Check if the download link exists (because if an error occurs, the download link will not be present)
