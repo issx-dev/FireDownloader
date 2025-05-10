@@ -2,6 +2,17 @@
 
 A powerful Flask-based web application for downloading YouTube videos and audio files with ease.
 
+## Technologies Used
+
+- Flask (3.1.0)
+- yt-dlp
+- Jinja2 (3.1.6)
+
+![Python](https://img.shields.io/badge/python-3.12.3-blue.svg)
+![Flask](https://img.shields.io/badge/flask-3.1.0-green.svg)
+![Jinja2](https://img.shields.io/badge/jinja2-3.1.6-red.svg)
+![License](https://img.shields.io/badge/license-MIT-yellow.svg)
+
 ## Features
 
 - 📱 Multiple video quality options (360p to 2160p)
@@ -43,16 +54,6 @@ http://localhost:5000
 - Full URL: https://www.youtube.com/watch?v=VIDEO_ID
 - Short URL: https://youtu.be/VIDEO_ID
 
-## Technologies Used
-
-- Flask (3.1.0)
-- yt-dlp
-- Jinja2 (3.1.6)
-
-![Python](https://img.shields.io/badge/python-3.12.3-blue.svg)
-![Flask](https://img.shields.io/badge/flask-3.1.0-green.svg)
-![Jinja2](https://img.shields.io/badge/jinja2-3.1.6-red.svg)
-![License](https://img.shields.io/badge/license-MIT-yellow.svg)
 
 ## Development Setup
 
