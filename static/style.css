@@ -5,7 +5,7 @@
     --card-bg: rgba(255, 255, 255, 0.05);
     --border: rgba(255, 255, 255, 0.1);
     --text-color: #ffffffcc;
-    --accent: #00c3ff;
+    --accent: #e23a1c;
     --danger: #9e3b3b;
     --warning: #d8ad58;
     --success: #00e676;
@@ -13,6 +13,10 @@
 
 * {
     box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
@@ -117,6 +121,27 @@ button:hover {
     border-radius: 10px;
     font-weight: 600;
     font-size: 0.95rem;
+    text-align: center;
+}
+
+.warning p,
+.success p {
+    color: black;
+}
+
+.success a,
+.warning a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+    background-color: rgb(163, 163, 163);
+    color: black;
+    padding: 0.6rem 1rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
 }
 
 .error {
@@ -128,33 +153,16 @@ button:hover {
     background-color: var(--warning);
 }
 
-.warning p {
-    color: black;
+.warning a:hover {
+    background-color: #a18d659a;
 }
 
 .success {
     background-color: var(--success);
-    text-align: center;
-}
-
-.success p {
-    color: black;
-}
-
-.success a {
-    display: inline-block;
-    margin-top: 1rem;
-    background-color: white;
-    color: var(--success);
-    padding: 0.6rem 1rem;
-    border-radius: 8px;
-    text-decoration: none;
-    font-weight: 600;
-    transition: background-color 0.3s ease;
 }
 
 .success a:hover {
-    background-color: #777777;
+    background-color: #5cb389d5;
 }
 
 @media (max-width: 600px) {

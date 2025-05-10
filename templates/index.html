@@ -24,6 +24,7 @@
 
 <body>
     <header>
+        <img src="{{ url_for('static', filename='favicon.png') }}" alt="Logo de FireDownloader" width="50">
         <h1>FireDownloader</h1>
     </header>
 
@@ -33,7 +34,7 @@
 
         <form action="/download" method="post">
             <label for="url">URL del video:</label>
-            <input type="text" id="url" name="url" required>
+            <input type="text" id="url" name="url" required autofocus>
 
             <label for="quality">Calidad del video:</label>
             <select id="quality" name="quality">
@@ -53,33 +54,37 @@
                 <option value="m4a">M4A (audio)</option>
             </select>
 
-
-            <button type="submit">Descargar</button>
+            <button id="download_btn" type="submit">Descargar</button>
         </form>
 
-        <p>Nota: Asegúrate de que la URL del video sea válida y de que el video esté disponible para su descarga.</p>
-        {% if result %}
-        <br><br>
-        <h3>Resultados de la descarga</h3>
-        {% endif %}
+        <div id="download_info">
+            <p>Nota: Asegúrate de que la URL del video sea válida y de que el video esté disponible para su descarga.
+            </p>
+            {% if result %}
+            <br>
+            <h3>Resultados de la descarga</h3>
+            {% endif %}
 
-        {% if result and result['success'] %}
-        <div class="success">
-            <p>Descarga preparada</p>
-            {{download_file}}
-            <a href="{{ download_file }}" download>Descargar aquí</a>
+            {% if result and result['success']%}
+            <div class="{{ 'warning' if '⚠️' in result['error'] else 'success' }}">
+
+                {% if "⚠️" in result['error'] %}
+                <p>{{ result['error'] }}</p>
+                {% else %}
+                <p>✅️ Todo listo, archivo listo para descargar!!</p>
+                {% endif %}
+
+                <a id="download-link" href="{{ download_file }}" data-filename="{{ result['file_name'] }}" download>
+                    Pulsa aquí para descargar ->
+                    <img src="/static/favicon.png" alt="Icono para descargar" width="30"></a>
+            </div>
+            {% elif result %}
+            <div class="error">
+                <p>{{ result['error'] }}</p>
+            </div>
+            {% endif %}
+            <div id="redirect_info"></div>
         </div>
-        {% elif result and "❌" in result['error']%}
-        <div class="error">
-            <p>{{ result['error'] }}</p>
-        </div>
-        {% elif result and "⚠️" in result['error'] %}
-        <div class="warning">
-            <p>{{ result['error'] }}</p>
-            <a href="{{ download_file }}" download onclick="hideInfoDownload()">Descargar aquí</a>
-        </div>
-        {% endif %}
-        <div id="redirect_info"></div>
     </main>
 </body>
 

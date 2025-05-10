@@ -47,7 +47,7 @@ def download_video(url, quality="1080", format="mp4"):
             if info and (info.get("height", 0) or 0) < int(quality) and format != "mp3":
                 max_quality = f"{info['height']}p"
                 return {
-                    "success": False,
+                    "success": True,
                     "error": f"⚠️ Calidad máxima disponible: {max_quality}",
                     "file_path": full_path,
                     "file_name": filename,
@@ -72,5 +72,14 @@ def download_video(url, quality="1080", format="mp4"):
         return {"success": False, "error": "❌ Error al extraer el video"}
     except yt_dlp.utils.DownloadError:
         return {"success": False, "error": "❌ Video no encontrado o URL inválida"}
+    except ValueError as e:
+        return {"success": False, "error": f"❌ {str(e)}"}
     except Exception as e:
         return {"success": False, "error": f"❌ Error inesperado: {str(e)}"}
+
+
+if __name__ == "__main__":
+    # Ejemplo de uso
+    url = "https://www.youtube.com/watch?v=example"
+    result = download_video(url, quality="1080", format="mp4")
+    print(result)

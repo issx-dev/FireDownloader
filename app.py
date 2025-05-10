@@ -19,6 +19,9 @@ def download():
 
     result = download_video(url, quality, format)
 
+    if not result["success"]:
+        return render_template("index.html", result=result)
+
     return render_template(
         "index.html", result=result, download_file=f"/download/{result['file_name']}"
     )
