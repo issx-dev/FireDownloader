@@ -1,26 +1,41 @@
+// NOTES
+//  window.addEventListener("load", ...) -> This event is used to ensure that all DOM elements are loaded
+
+// Function that redirects to the main page after 30 seconds
+// Define a variable to check if the redirect is already in progress
 let isRedirectingToMain = false;
 async function redirectAfterDownload() {
     if (isRedirectingToMain) return;
     isRedirectingToMain = true;
 
+    // Get the redirect info element in the DOM
     let redirectInfo = document.getElementById("redirect_info");
+    // Define the counter variable and set the redirection time in seconds
     let counter = 30;
+    // Set the initial text content of the redirect info element
     redirectInfo.textContent = `Redirigiendo en ${counter}...`;
-
+    // Set the interval to update the counter every second
     let interval = setInterval(() => {
+        // Update the counter every second
         counter--;
         if (counter > 0) {
             redirectInfo.textContent = `Redirigiendo en ${counter}...`;
         } else {
+            // If the counter reaches 0, clear the interval and redirect to the main page
+            redirectInfo.textContent = "Redirigiendo...";
             clearInterval(interval);
         }
     }, 1000);
-
+    
+    // Generate a promise that resolves after 30 seconds
+    // Await needs a promise to makes a pause in the function until the promise is resolved (like wait 30 seconds before continuing)
+    // When the timeout (timer) is over, resolve is automatically called
+    // Resolve by itself is a function that is called when the promise is resolved successfully (reject is called when the promise fails)
     await new Promise(resolve => setTimeout(resolve, 30000));
+    // Redirect to the main page
     location.href = "/";
 }
 
-//  window.addEventListener("load", ...) -> This event is used to ensure that all DOM elements are loaded
 window.addEventListener("load", () => {
     // Get the download link element in the DOM
     const downloadLink = document.getElementById('download-link');
@@ -72,6 +87,7 @@ window.addEventListener("load", () => {
 });
 
 window.addEventListener("load", () => {
+    // Scroll to the download info section if it contains a success, warning, or error message
     const scrollTarget = document.getElementById("download_info");
     if (scrollTarget) {
         const resultSection = scrollTarget.querySelector(".success, .warning, .error");
