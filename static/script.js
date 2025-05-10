@@ -38,7 +38,14 @@ document.getElementById('download-link').addEventListener('click', function (eve
         a.href = url;
         a.download = filename;
         document.body.appendChild(a);
-        a.click();
+
+        const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (isMobile) {
+            window.open(url, '_blank');
+        } else {
+            a.click();
+        }
+        
         window.URL.revokeObjectURL(url);
 
         // Retutrn to the main page after 30 seconds
@@ -52,10 +59,10 @@ window.addEventListener("load", () => {
     if (scrollTarget) {
         const resultSection = scrollTarget.querySelector(".success, .warning, .error");
         if (resultSection) {
-            // Dar un pequeño delay para que móviles lo procesen
+            // Delay the scroll to ensure the section is fully loaded
             setTimeout(() => {
                 scrollTarget.scrollIntoView({ behavior: "smooth", block: "start" });
-            }, 100);  // También puedes probar con 200ms si sigue fallando
+            }, 100);
         }
     }
 });
