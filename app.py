@@ -7,7 +7,11 @@ app = Flask(__name__)
 
 @app.route("/")
 def home():
-    del_old_files("Downloads")
+    # Deletes the filename recieved from the redirection
+    filename = request.args.get("q", None)
+    if filename:
+        del_old_files("Downloads", filename)
+
     return render_template("index.html")
 
 
