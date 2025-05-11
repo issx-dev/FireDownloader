@@ -84,7 +84,7 @@ window.addEventListener("load", () => {
             // CLEAN UP
             // Remove the temporary link from the DOM
             URL.revokeObjectURL(url);
-            // Retutrn to the main page after 30 seconds
+            // Return to the main page after 30 seconds
             redirectAfterDownload();
         } catch (error) {
             // If the request fails, show an error message

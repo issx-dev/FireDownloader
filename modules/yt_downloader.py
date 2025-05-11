@@ -2,6 +2,7 @@
 import yt_dlp
 import os
 
+
 # This function downloads a video from a given URL using yt-dlp, with the specified quality and format.
 def download_video(url, quality="1080", format="mp4"):
     # Temporarily set the download directory to the current working directory
@@ -9,7 +10,7 @@ def download_video(url, quality="1080", format="mp4"):
     os.makedirs(download_dir, exist_ok=True)
 
     # Template for the output file name, using the title of the video and its extension
-    outtmpl = os.path.join(download_dir, "%(title).80s.%(ext)s") 
+    outtmpl = os.path.join(download_dir, "%(title).80s.%(ext)s")
 
     # Set the output template and mutes the console output.
     ydl_opts = {
@@ -78,13 +79,16 @@ def download_video(url, quality="1080", format="mp4"):
                 "file_name": filename,
                 "title": title,
             }
-    
+
     # Handle specific exceptions for better error messages.
     except yt_dlp.utils.ExtractorError:
         return {"success": False, "error": "❌ Error al extraer el video"}
     except yt_dlp.utils.DownloadError:
         return {"success": False, "error": "❌ Video no encontrado o URL inválida"}
-    except ValueError as e:
-        return {"success": False, "error": f"❌ {str(e)}"}
-    except Exception as e:
-        return {"success": False, "error": f"❌ Error inesperado: {str(e)}"}
+    except ValueError:
+        return {
+            "success": False,
+            "error": "❌ Error inesperado, vuelva a intentarlo más tarde",
+        }
+    except Exception:
+        return {"success": False, "error": "❌ Error inesperado"}
