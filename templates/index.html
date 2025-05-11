@@ -87,7 +87,7 @@
                 3. We can construct the download link dynamically, so we can use the same link for all formats.
                 4. Force the download with a.click() instead of using the download attribute.
                 -->
-                <a id="download-link" href="{{ download_file }}" data-filename="{{ result['file_name'] }}" download>
+                <a id="download-link" href="{{ download_file }}" data-filename="{{ result['file_name'] }}" data-uniqueFilename="{{result['unique_filename']}}" download>
                     Pulsa aquí para descargar ->
                     <img src="/static/favicon.png" alt="Icono para descargar" width="30"></a>
             </div>

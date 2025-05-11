@@ -63,6 +63,7 @@ window.addEventListener("load", () => {
         // Get the link and filename from the data attributes in the HTML (a button with the download link)
         const link = this.getAttribute("href");
         const filename = this.getAttribute("data-filename");
+        const unique_filename = this.getAttribute("data-uniqueFilename")
 
         try {
             const response = await fetch(link);
@@ -89,7 +90,7 @@ window.addEventListener("load", () => {
             // Remove the temporary link from the DOM
             URL.revokeObjectURL(url);
             // Return to the main page after 30 seconds
-            redirectAfterDownload(filename);
+            redirectAfterDownload(unique_filename);
         } catch (error) {
             // If the request fails, show an error message
             const downloadInfo = document.getElementById("download_info");
