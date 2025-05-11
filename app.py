@@ -27,7 +27,7 @@ def download():
         return render_template("index.html", result=result)
 
     return render_template(
-        "index.html", result=result, download_file=f"/download/{result['file_name']}"
+        "index.html", result=result, download_file=f"/download/{result['unique_filename']}"
     )
 
 
