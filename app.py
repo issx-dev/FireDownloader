@@ -27,7 +27,9 @@ def download():
         return render_template("index.html", result=result)
 
     return render_template(
-        "index.html", result=result, download_file=f"/download/{result['unique_filename']}"
+        "index.html",
+        result=result,
+        download_file=f"/download/{result['unique_filename']}",
     )
 
 
@@ -37,4 +39,4 @@ def download_file(filename):
 
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(host="0.0.0.0", port=5000)

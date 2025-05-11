@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: yt-video-downloader
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
+    envVars:
+      - key: FLASK_ENV
+        value: production
+    ports:
+      - port: 5000
