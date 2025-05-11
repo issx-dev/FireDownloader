@@ -1,13 +1,15 @@
 import os
+import logging
 
 
-def del_old_files(ruta):
-    for archivo in os.listdir(ruta):
-        print(archivo)
-        path_archivo = os.path.join(ruta, archivo)
-        if os.path.isfile(path_archivo):
-            try:
-                os.remove(path_archivo)
-                print(f"Eliminado: {archivo}")
-            except Exception as e:
-                print(f"Error: {e}")
+def del_old_files(filepath, filename:str):
+    file_path = os.path.join(filepath, filename)
+    if os.path.isfile(file_path):
+        try:
+            os.remove(file_path)
+            logging.info(f"Eliminado: {filename}")
+        except Exception as e:
+            logging.error(f"Error: {e}")
+        return
+    
+    logging.info(f"La ruta {file_path} no ha podido ser localizada")
