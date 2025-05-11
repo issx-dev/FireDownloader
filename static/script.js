@@ -4,7 +4,7 @@
 // Function that redirects to the main page after 30 seconds
 // Define a variable to check if the redirect is already in progress
 let isRedirectingToMain = false;
-async function redirectAfterDownload() {
+async function redirectAfterDownload(filename) {
     if (isRedirectingToMain) return;
     isRedirectingToMain = true;
 
@@ -32,8 +32,12 @@ async function redirectAfterDownload() {
     // When the timeout (timer) is over, resolve is automatically called
     // Resolve by itself is a function that is called when the promise is resolved successfully (reject is called when the promise fails)
     await new Promise((resolve) => setTimeout(resolve, 30000));
-    // Redirect to the main page
-    location.href = "/";
+    if (filename) {
+        // Redirect to the main page
+        location.href = `/?q=${filename}`;
+    } else {
+        location.href = "/";
+    }
 }
 
 window.addEventListener("load", () => {
@@ -85,7 +89,7 @@ window.addEventListener("load", () => {
             // Remove the temporary link from the DOM
             URL.revokeObjectURL(url);
             // Return to the main page after 30 seconds
-            redirectAfterDownload();
+            redirectAfterDownload(filename);
         } catch (error) {
             // If the request fails, show an error message
             const downloadInfo = document.getElementById("download_info");
