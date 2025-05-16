@@ -5,7 +5,7 @@ from datetime import datetime
 
 def sanitize_title(name: str) -> str:
     # Replace invalid characters with "_"
-    return re.sub(r'[\\/*?:"<>| ]+', "_", name).strip("_")
+    return re.sub(r'[\\/*?:"<>|]+', "_", name).strip("_")
 
 
 def make_unique_filename(raw_title: str) -> str:
