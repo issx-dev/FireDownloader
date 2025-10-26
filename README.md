@@ -27,8 +27,8 @@ A powerful Flask-based web application for downloading YouTube videos and audio 
 
 1. Create a Python virtual environment (recommended):
 ```bash
-python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+python3 -m venv .venv
+source .venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
 
 2. Install dependencies:
