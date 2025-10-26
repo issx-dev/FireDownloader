@@ -25,10 +25,12 @@ A powerful Flask-based web application for downloading YouTube videos and audio 
 
 ## Installation
 
+### Linux/Mac
+
 1. Create a Python virtual environment (recommended):
 ```bash
 python3 -m venv .venv
-source .venv/bin/activate  # On Windows: venv\Scripts\activate
+source .venv/bin/activate
 ```
 
 2. Install dependencies:
@@ -36,18 +38,42 @@ source .venv/bin/activate  # On Windows: venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
+### Windows
+
+1. Create a Python virtual environment (recommended):
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+```
+
+2. Install dependencies:
+```bash
+pip install -r requirements.txt
+```
+
+3. Install ffmpeg (required for video processing):
+   - Download from https://ffmpeg.org/download.html
+   - Extract the files
+   - Add the `bin` folder to your system PATH
+   - Or place `ffmpeg.exe` in the project directory
+
 ## Usage
 
 1. Start the Flask application:
-```bash
-python3 app.py
-# or
-flask run
-```
+
+   **Linux/Mac:**
+   ```bash
+   python3 app.py
+   ```
+
+   **Windows:**
+   ```bash
+   python app.py
+   ```
 
 2. Open your web browser and navigate to:
 ```
-http://localhost:5000
+http://localhost:5001
 ```
 
 3. Enter a valid YouTube URL:
