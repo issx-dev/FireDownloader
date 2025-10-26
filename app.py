@@ -10,7 +10,7 @@ def home():
     # Deletes the filename recieved from the redirection
     filename = request.args.get("q", None)
     if filename:
-        del_old_files("Downloads", filename)
+        del_old_files("Downloads", filename, timeout=10)
 
     return render_template("index.html")
 
@@ -26,8 +26,12 @@ def download():
     if not result["success"]:
         return render_template("index.html", result=result)
 
+    del_old_files("Downloads", result["unique_filename"], timeout=300)
+
     return render_template(
-        "index.html", result=result, download_file=f"/download/{result['unique_filename']}"
+        "index.html",
+        result=result,
+        download_file=f"/download/{result['unique_filename']}",
     )
 
 
