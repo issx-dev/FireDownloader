@@ -78,3 +78,5 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 Developed by issx-dev
 
+## Disclaimer
+Done for educational purposes only.
